@@ -57,5 +57,15 @@
     class="px-2 py-1 text-sm bg-blue-600 rounded-lg text-white hover:bg-blue-600/70"
     >Create Lobby</a
   >
-  <Card card={{ color: "blue", numberValue: 8, type: "number" }} />
+  <div class="flex items-center absolute top-0">
+    <Card
+      card={{ color: "green", numberValue: 2, type: "number" }}
+      disableMouseEvents
+    />
+    <h2 class="text-4xl">.</h2>
+    <Card
+      card={{ color: "red", numberValue: 0, type: "number" }}
+      disableMouseEvents
+    />
+  </div>
 </main>
