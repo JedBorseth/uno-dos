@@ -2,7 +2,9 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
+	"os/exec"
 	"sync"
 
 	"github.com/gofiber/contrib/websocket"
@@ -56,11 +58,28 @@ func runHub() {
 		}
 	}
 }
+func buildClient() {
+	cmd := exec.Command("cd", "client", "&&", "pnpm", "run", "build")
+	stdout, err := cmd.Output()
+	if err != nil {
+		log.Fatal(err.Error())
+		return
+	}
+	// I do not think this is working
+	fmt.Println(string(stdout))
+
+}
 
 func main() {
 	app := fiber.New()
 
-	app.Static("/", "./home.html")
+	go buildClient()
+
+	app.Static("/", "./clientStaticBuild")
+	
+	// app.Static("/", "./home.html")
+
+
 
 	app.Use(func(c *fiber.Ctx) error {
 		if websocket.IsWebSocketUpgrade(c) { // Returns true if the client requested upgrade to the WebSocket protocol
